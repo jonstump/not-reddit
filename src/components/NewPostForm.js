@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import PropTypes from 'prop-types'
 import ReusableForm from './ReusableForm';
 
-function newPostForm(props) {
+function NewPostForm(props) {
   return(
     <>
       <ReusableForm formSubmissionHandler={handleNewPostSubmissionForm}
@@ -22,8 +22,8 @@ function newPostForm(props) {
   }
 }
 
-NewPostForm.PropTypes = {
+NewPostForm.propTypes = {
   onNewPostCreation: PropTypes.func
 };
 
-export default newPostForm;
+export default NewPostForm;
