@@ -1,7 +1,5 @@
 import postListReducer from '../../reducers/post-list-reducer';
-
 describe('postListReducer', () => {
-
   const currentState = {
     1: { title: "This is a post",
         content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
@@ -18,7 +16,6 @@ describe('postListReducer', () => {
         id: 2
       }
   }
-
   let action;
   const postFormData = {
     title: "This is a post",
@@ -28,11 +25,9 @@ describe('postListReducer', () => {
     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`,
     id: 1
   }
-
   test('Should return default state if no action type is recognized', () => {
     expect(postListReducer({}, {type: null})).toEqual({});
   });
-
   test('Should add a new post to the masterPostList', () => {
     const { title, content, author, votes, timeStamp, id } = postFormData;
     action = {
@@ -55,7 +50,6 @@ describe('postListReducer', () => {
       }
     });
   });
-
   test('Should delete a post', () => {
     action = {
       type: 'DELETE_POST',

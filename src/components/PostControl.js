@@ -56,9 +56,23 @@ class PostControl extends React.Component {
     this.setState({selectedPost: selectedPost})
   }
 
+  handleAddingNewPostToList = (newPost) => {
+    const { dispatch } = this.props;
+    const { title, content, author, votes, timeStamp, id } = newPost;
+    const action = {
+      type: 'ADD_POST',
+      title: title,
+      content: content,
+      author: author,
+      votes: votes,
+      timeStamp: timeStamp,
+      id: id
+    }
+    dispatch(action);
+    this.setState({formVisible: false});
+  }
+
   render(){
-
-
     let currentView = null;
     let buttonText = null;
     if (this.state.formVisible){
@@ -66,7 +80,7 @@ class PostControl extends React.Component {
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
-        postsArray = {this.state.examplePosts}
+        postList = {this.props.masterPostList}
       />
       buttonText = "Create new post"
     }
@@ -79,5 +93,13 @@ class PostControl extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    masterPostList: state
+  }
+}
+
+PostControl = connect(mapStateToProps)(PostControl);
 
 export default PostControl;
