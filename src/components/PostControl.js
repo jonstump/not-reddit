@@ -59,6 +59,16 @@ class PostControl extends React.Component {
     this.setState({editing: true});
   }
 
+  handleUpvoteClick = (id) => {
+    const selectedPost = this.props.masterPostList[id];
+    selectedPost.votes += 1;
+    this.setState({selectedPost: selectedPost})
+    }
+  handleDownvoteClick = (id) => {
+    const selectedPost = this.props.masterPostList[id];
+    selectedPost.votes -= 1;
+    this.setState({selectedPost: selectedPost})
+    }
 
   render(){
     let currentView = null;
@@ -79,7 +89,10 @@ class PostControl extends React.Component {
       currentView = <PostDetail post = {
         this.state.selectedPost}
         onClickingDelete = {this.handleDeleteingPost}
-        onClickingEdit = {this.handleEditClick} />
+        onClickingEdit = {this.handleEditClick}
+        onClickingUpvote = {this.handleUpvoteClick}
+        onClickingDownvote = {this.handleDownvoteClick}
+        />
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
