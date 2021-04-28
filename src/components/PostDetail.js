@@ -10,13 +10,15 @@ function PostDetail(props){
         <h3>{post.title}</h3>
         <p>{post.content}</p>
         <p>Votes: {post.votes}</p>
+        <button onClick={() => props.onClickingDelete(post.id) }>Delete</button>
       </div>
     </>
   )
 }
 
 PostDetail.propTypes = {
-  post: PropTypes.object
+  post: PropTypes.object,
+  onClickingDelete: PropTypes.func
 }
 
 export default PostDetail;

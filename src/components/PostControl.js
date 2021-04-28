@@ -47,13 +47,24 @@ class PostControl extends React.Component {
     this.setState({formVisible: false});
   }
 
+  handleDeleteingPost = (id) => {
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_POST',
+      id: id
+    }
+    dispatch(action);
+    this.setState({selectedPost: null});
+  }
+
   render(){
     let currentView = null;
     let buttonText = null;
 
     if(this.state.selectedPost != null){
       currentView = <PostDetail post = {
-        this.state.selectedPost} />
+        this.state.selectedPost}
+        onClickingDelete = {this.handleDeleteingPost} />
       buttonText = "Return to Posts"
     }
     else if (this.state.formVisible){
