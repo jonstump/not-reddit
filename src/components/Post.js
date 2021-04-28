@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types'
+
 
 function Post(props){
   return (
@@ -13,6 +15,14 @@ function Post(props){
 
 export default Post;
 
+Post.propTypes = {
+  author: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  id: PropTypes.string,
+  votes: PropTypes.string,
+  timeStamp: PropTypes.string,
+};
 
 // title
 // content

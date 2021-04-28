@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 
 function PostList(props){
   return(
-    <>
-    {Object.values(props.postList).map((post) => 
+    <React.Fragment>
+    {Object.values(props.postList).map((post) =>
       <div className="styledPost">
         <Post
           title = {post.title}
@@ -13,16 +13,18 @@ function PostList(props){
           author = {post.author}
           votes = {post.votes}
           timeStamp = {post.timeStamp}
+          id = {post.id}
+          key = {post.id}
         />
         <hr/>
       </div>
       )}
-    </>
+    </React.Fragment>
   );
 }
 
 PostList.propTypes = {
-  PostList: PropTypes.object,
+  postList: PropTypes.object,
   // onPostSelection: PropTypes.func
 };
 export default PostList;

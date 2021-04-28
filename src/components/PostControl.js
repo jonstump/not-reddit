@@ -10,38 +10,6 @@ class PostControl extends React.Component {
     this.state = {
       formVisible: false,
       selectedPost: null,
-      // examplePosts: [
-      //   { title: "This is a post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacDaddy",
-      //     votes: "433",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "This is a really cool post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacSonny",
-      //     votes: "123",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "Posty McPostface",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacGramp",
-      //     votes: "533",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "No yOU are A PoST",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacGrany",
-      //     votes: "423",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "Posty post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "Macladdy",
-      //     votes: "993",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
-      //   }
-      // ]
     };
   }
 
@@ -76,7 +44,9 @@ class PostControl extends React.Component {
     let currentView = null;
     let buttonText = null;
     if (this.state.formVisible){
-      currentView = <NewPostForm />
+      currentView = <NewPostForm
+        onNewPostCreation = {this.handleAddingNewPostToList}
+      />
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
@@ -96,7 +66,7 @@ class PostControl extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    masterPostList: state
+    masterPostList: state.masterPostList
   }
 }
 
