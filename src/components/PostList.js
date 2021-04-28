@@ -6,7 +6,7 @@ function PostList(props){
   return(
     <React.Fragment>
     {Object.values(props.postList).map((post) =>
-      <div className="styledPost">
+      <div className="styledPost" key = {post.id}>
         <Post
           title = {post.title}
           content = {post.content}
@@ -14,7 +14,7 @@ function PostList(props){
           votes = {post.votes}
           timeStamp = {post.timeStamp}
           id = {post.id}
-          key = {post.id}
+          // key = {post.id}
         />
         <hr/>
       </div>

@@ -20,7 +20,7 @@ Post.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,
   id: PropTypes.string,
-  votes: PropTypes.string,
+  votes: PropTypes.number,
   timeStamp: PropTypes.string,
 };
 
