@@ -15,9 +15,15 @@ class PostControl extends React.Component {
   }
 
   handleButtonClick = () => {
-    this.setState(prevState => ({
-      formVisible: !prevState.formVisible
-    }));
+    if (this.state.selectedPost != null) {
+      this.setState({
+        selectedPost: null
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisible: !prevState.formVisible
+      }));
+    }
   }
 
   handleSelectedPost = (id) => {

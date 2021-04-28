@@ -7,7 +7,7 @@ function PostDetail(props){
   return (
     <>
       <div className="styledPost">
-        <p>Posted by u/{post.author} {post.timestamp}</p>
+        <p>Posted by u/{post.author} {post.timeStamp}</p>
         <h3>{post.title}</h3>
         <p>{post.content}</p>
         <p>Votes: {post.votes}</p>
