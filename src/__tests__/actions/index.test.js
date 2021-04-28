@@ -1,9 +1,10 @@
 import * as actions from './../../actions';
+import * as c from './../../actions/ActionTypes';
 
 describe('help queue actions', () => {
   it('deletePost should create DELETE_POST action', () => {
     expect(actions.deletePost(1)).toEqual({
-      type: 'DELETE_POST',
+      type: c.DELETE_POST,
       id: 1
     });
   });
@@ -19,7 +20,7 @@ describe('help queue actions', () => {
       timeStamp: clock,
       id: 1
     })).toEqual({
-      type: 'ADD_POST',
+      type: c.ADD_POST,
       author: 'Mac Daddy',
       title: 'title',
       content: 'content',

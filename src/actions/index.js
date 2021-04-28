@@ -1,12 +1,14 @@
+import * as c from './ActionTypes'
+
 export const deletePost = id => ({
-  type: 'DELETE_POST',
+  type: c.DELETE_POST,
   id
 });
 
 export const addPost = (post) => {
   const { title, content, author, votes, timeStamp, id } = post;
   return {
-  type: 'ADD_POST',
+  type: c.ADD_POST,
   title: title,
   content: content,
   author: author,

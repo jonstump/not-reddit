@@ -1,4 +1,7 @@
 import postListReducer from '../../reducers/post-list-reducer';
+import * as c from '../../actions/ActionTypes';
+
+
 describe('postListReducer', () => {
   const currentState = {
     1: { title: "This is a post",
@@ -31,7 +34,7 @@ describe('postListReducer', () => {
   test('Should add a new post to the masterPostList', () => {
     const { title, content, author, votes, timeStamp, id } = postFormData;
     action = {
-      type: "ADD_POST",
+      type: c.ADD_POST,
       title: title,
       content: content,
       author: author,
@@ -52,7 +55,7 @@ describe('postListReducer', () => {
   });
   test('Should delete a post', () => {
     action = {
-      type: 'DELETE_POST',
+      type: c.DELETE_POST,
       id: 1
     };
     expect(postListReducer(currentState, action)).toEqual(
