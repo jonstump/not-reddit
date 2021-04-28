@@ -1,6 +1,7 @@
 import React from 'react';
 import PostList from './PostList';
 import NewPostForm from './NewPostForm';
+import EditPostForm from './EditPostForm';
 import PostDetail from './PostDetail';
 import { connect } from 'react-redux';
 
