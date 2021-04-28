@@ -6,10 +6,12 @@ function PostDetail(props){
   const { post } = props;
   return (
     <>
-      <p>Posted by u/{post.author} {post.timestamp}</p>
-      <h3>{post.title}</h3>
-      <p>{post.content}</p>
-      <p>Votes: {post.votes}</p>
+      <div className="styledPost">
+        <p>Posted by u/{post.author} {post.timestamp}</p>
+        <h3>{post.title}</h3>
+        <p>{post.content}</p>
+        <p>Votes: {post.votes}</p>
+      </div>
     </>
   )
 }

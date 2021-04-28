@@ -1,6 +1,7 @@
 import React from 'react';
 import PostList from './PostList';
 import NewPostForm from './NewPostForm';
+import PostDetail from './PostDetail';
 import { connect } from 'react-redux';
 
 class PostControl extends React.Component {
@@ -43,14 +44,20 @@ class PostControl extends React.Component {
   render(){
     let currentView = null;
     let buttonText = null;
-    if (this.state.formVisible){
+
+    if(this.state.selectedPost != null){
+      currentView = <PostDetail post = {
+        this.state.selectedPost} />
+      buttonText = "Return to Posts"
+    }
+    else if (this.state.formVisible){
       currentView = <NewPostForm
         onNewPostCreation = {this.handleAddingNewPostToList}
       />
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
-        postList = {this.props.masterPostList}
+        postList = {this.props.masterPostList} onPostSelection = {this.handleSelectedPost}
       />
       buttonText = "Create new post"
     }

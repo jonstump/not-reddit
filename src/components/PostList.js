@@ -6,8 +6,9 @@ function PostList(props){
   return(
     <React.Fragment>
     {Object.values(props.postList).map((post) =>
-      <div className="styledPost" key = {post.id}>
+      <div key = {post.id}>
         <Post
+          whenPostClicked={props.onPostSelection}
           title = {post.title}
           content = {post.content}
           author = {post.author}
@@ -25,6 +26,6 @@ function PostList(props){
 
 PostList.propTypes = {
   postList: PropTypes.object,
-  // onPostSelection: PropTypes.func
+  onPostSelection: PropTypes.func
 };
 export default PostList;
