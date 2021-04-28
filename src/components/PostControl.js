@@ -12,6 +12,7 @@ class PostControl extends React.Component {
     this.state = {
       formVisible: false,
       selectedPost: null,
+      editing: false
     };
   }
 
@@ -48,6 +49,22 @@ class PostControl extends React.Component {
     this.setState({formVisible: false});
   }
 
+  handleEditingPost = (postToEdit) => {
+    const { dispatch } = this.props;
+    const { title, content, author, votes, timeStamp, id } = postToEdit;
+    const action = {
+      type: 'ADD_POST',
+      title: title,
+      content: content,
+      author: author,
+      votes: votes,
+      timeStamp: timeStamp,
+      id: id
+    }
+    dispatch(action);
+    this.setState({editing: false, selectedPost: null});
+  }
+
   handleDeleteingPost = (id) => {
     const { dispatch } = this.props;
     const action = {
@@ -58,20 +75,31 @@ class PostControl extends React.Component {
     this.setState({selectedPost: null});
   }
 
+  handleEditClick = () => {
+    this.setState({editing: true});
+  }
+
+
   render(){
     let currentView = null;
     let buttonText = null;
 
-    if(this.state.selectedPost != null){
-      currentView = <PostDetail post = {
-        this.state.selectedPost}
-        onClickingDelete = {this.handleDeleteingPost} />
+    if (this.state.editing){
+      currentView = <EditPostForm
+        post = {this.state.selectedPost}
+        onEditPost = {this.handleEditingPost}
+      />
       buttonText = "Return to Posts"
-    }
-    else if (this.state.formVisible){
+    } else if (this.state.formVisible){
       currentView = <NewPostForm
         onNewPostCreation = {this.handleAddingNewPostToList}
       />
+      buttonText = "Return to Posts"
+    } else if(this.state.selectedPost != null){
+      currentView = <PostDetail post = {
+        this.state.selectedPost}
+        onClickingDelete = {this.handleDeleteingPost}
+        onClickingEdit = {this.handleEditClick} />
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
@@ -79,7 +107,6 @@ class PostControl extends React.Component {
       />
       buttonText = "Create new post"
     }
-
     return (
       <>
         <button onClick={this.handleButtonClick}>{buttonText}</button>

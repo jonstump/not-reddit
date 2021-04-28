@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function PostDetail(props){
-  const { post } = props;
+  const { post, onClickingDelete, onClickingEdit } = props;
   return (
     <>
       <div className="styledPost">
@@ -10,7 +10,8 @@ function PostDetail(props){
         <h3>{post.title}</h3>
         <p>{post.content}</p>
         <p>Votes: {post.votes}</p>
-        <button onClick={() => props.onClickingDelete(post.id) }>Delete</button>
+        <button onClick={() => onClickingDelete(post.id) }>Delete</button>
+        <button onClick={onClickingEdit}>Edit</button>
       </div>
     </>
   )
