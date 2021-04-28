@@ -3,6 +3,7 @@ import PostList from './PostList';
 import NewPostForm from './NewPostForm';
 import EditPostForm from './EditPostForm';
 import PostDetail from './PostDetail';
+import * as a from './../actions';
 import { connect } from 'react-redux';
 
 class PostControl extends React.Component {
@@ -35,42 +36,21 @@ class PostControl extends React.Component {
 
   handleAddingNewPostToList = (newPost) => {
     const { dispatch } = this.props;
-    const { title, content, author, votes, timeStamp, id } = newPost;
-    const action = {
-      type: 'ADD_POST',
-      title: title,
-      content: content,
-      author: author,
-      votes: votes,
-      timeStamp: timeStamp,
-      id: id
-    }
+    const action = a.addPost(newPost);
     dispatch(action);
     this.setState({formVisible: false});
   }
 
   handleEditingPost = (postToEdit) => {
     const { dispatch } = this.props;
-    const { title, content, author, votes, timeStamp, id } = postToEdit;
-    const action = {
-      type: 'ADD_POST',
-      title: title,
-      content: content,
-      author: author,
-      votes: votes,
-      timeStamp: timeStamp,
-      id: id
-    }
+    const action = a.addPost(postToEdit)
     dispatch(action);
     this.setState({editing: false, selectedPost: null});
   }
 
   handleDeleteingPost = (id) => {
     const { dispatch } = this.props;
-    const action = {
-      type: 'DELETE_POST',
-      id: id
-    }
+    const action = a.deletePost(id);
     dispatch(action);
     this.setState({selectedPost: null});
   }
