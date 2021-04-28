@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-
 function PostDetail(props){
   const { post } = props;
   return (
@@ -16,11 +15,8 @@ function PostDetail(props){
   )
 }
 
-
-// title
-// content
-// author
-//votes
-
+PostDetail.propTypes = {
+  post: PropTypes.object
+}
 
 export default PostDetail;
