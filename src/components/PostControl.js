@@ -21,21 +21,25 @@ class PostControl extends React.Component {
   componentDidMount(){
     this.waitTimeUpdateTimer = setInterval(() =>
     this.updatePostElapsedWaitTime(),
-    1000
+    60000
     );
   }
 
-  componentDidUpdate(){
-    console.log("component updated!");
-  }
+  // componentDidUpdate(){
+  //   console.log("component updated!");
+  // }
 
   componentWillUnmount(){
-    console.log("component unmounted");
     clearInterval(this.waitTimeUpdateTimer);
   }
 
   updatePostElapsedWaitTime = () => {
-    console.log("tick");
+    const { dispatch } = this.props;
+    Object.values(this.props.masterPostList).forEach(post => {
+      const newFormattedWaitTime = post.timeOpen.fromNow();
+      const action = a.updateTime(post.id, newFormattedWaitTime);
+      dispatch(action);
+    });
   }
 
   handleButtonClick = () => {

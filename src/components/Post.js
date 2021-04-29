@@ -6,7 +6,7 @@ function Post(props){
   return (
     <>
       <div className="styledPost" onClick = {() => props.whenPostClicked(props.id)}>
-        <p>Posted by u/{props.author} {props.timeStamp}</p>
+        <p>Posted by u/{props.author} {props.formattedWaitTime}</p>
         <h3>{props.title}</h3>
         <p>{props.content}</p>
         <p>Votes: {props.votes}</p>
@@ -23,7 +23,7 @@ Post.propTypes = {
   content: PropTypes.string,
   id: PropTypes.string,
   votes: PropTypes.number,
-  timeStamp: PropTypes.string,
+  formattedWaitTime: PropTypes.string
 };
 
 // title
