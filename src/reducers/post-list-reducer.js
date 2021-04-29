@@ -11,7 +11,9 @@ export default(state = {}, action) => {
           content: content,
           votes: votes,
           timeStamp: timeStamp,
-          id: id
+          id: id,
+          timeOpen: timeOpen,
+          formattedWaitTime: formattedWaitTime
         }
       });
     case c.DELETE_POST:

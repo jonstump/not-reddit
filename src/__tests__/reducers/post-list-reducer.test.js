@@ -56,7 +56,7 @@ describe('postListReducer', () => {
   });
 
   test('Should add a new post to the masterPostList', () => {
-    const { title, content, author, votes, timeStamp, id } = postFormData;
+    const { title, content, author, votes, timeStamp, id, timeOpen } = postFormData;
     action = {
       type: c.ADD_POST,
       title: title,
@@ -64,7 +64,9 @@ describe('postListReducer', () => {
       author: author,
       votes: votes,
       timeStamp: timeStamp,
-      id: id
+      timeOpen: timeOpen,
+      id: id,
+      formattedWaitTime: new Moment().fromNow()
     };
     expect(postListReducer({}, action)).toEqual({
       [id] : {
@@ -73,10 +75,13 @@ describe('postListReducer', () => {
         author: author,
         votes: votes,
         timeStamp: timeStamp,
-        id: id
+        timeOpen: timeOpen,
+        id: id,
+        formattedWaitTime: 'a few seconds ago'
       }
     });
   });
+
   test('Should delete a post', () => {
     action = {
       type: c.DELETE_POST,
