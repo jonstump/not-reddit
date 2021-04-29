@@ -9,9 +9,9 @@ function PostDetail(props){
       <span id="time" ><p>Posted by u/{post.author} {post.formattedWaitTime}</p></span>
         <h3>{post.title}</h3>
         <p>{post.content}</p>
-        <button onClick={() => onClickingUpvote(post.id)}>^</button>
+        <button onClick={() => onClickingUpvote(post.id)}>▲</button>
         <p>Votes: {post.votes}</p>
-        <button onClick={() => onClickingDownvote(post.id)}>v</button><br></br>
+        <button onClick={() => onClickingDownvote(post.id)}>▼</button><br></br><br></br>
         <button onClick={() => onClickingDelete(post.id) }>Delete</button>
         <button onClick={onClickingEdit}>Edit</button>
       </div>
