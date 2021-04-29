@@ -5,15 +5,15 @@ function PostDetail(props){
   const { post, onClickingDelete, onClickingEdit, onClickingUpvote, onClickingDownvote } = props;
   return (
     <>
-      <div className="styledPost">
-        <p>Posted by u/{post.author} {post.timeStamp}</p>
+      <div className="styledPostDetail">
+      <span id="time" ><p>Posted by u/{post.author} {post.formattedWaitTime}</p></span>
         <h3>{post.title}</h3>
         <p>{post.content}</p>
+        <button onClick={() => onClickingUpvote(post.id)}>▲</button>
         <p>Votes: {post.votes}</p>
+        <button onClick={() => onClickingDownvote(post.id)}>▼</button><br></br><br></br>
         <button onClick={() => onClickingDelete(post.id) }>Delete</button>
         <button onClick={onClickingEdit}>Edit</button>
-        <button onClick={() => onClickingUpvote(post.id)}>Upvote</button>
-        <button onClick={() => onClickingDownvote(post.id)}>Down vote</button>
       </div>
     </>
   )

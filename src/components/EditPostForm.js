@@ -7,7 +7,7 @@ function EditPostForm (props) {
 
   function handleEditPostFormSubmission(event) {
     event.preventDefault();
-    props.onEditPost({ author: event.target.author.value, title: event.target.title.value, content: event.target.content.value, id: post.id, timeStamp: post.timeStamp, votes: post.votes })
+    props.onEditPost({ author: event.target.author.value, title: event.target.title.value, content: event.target.content.value, id: post.id, timeStamp: post.timeStamp, votes: post.votes, timeOpen: post.timeOpen, formattedWaitTime: post.formattedWaitTime })
   }
 
   return(

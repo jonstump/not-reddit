@@ -1,6 +1,6 @@
 import postListReducer from '../../reducers/post-list-reducer';
 import * as c from '../../actions/ActionTypes';
-
+import Moment from 'moment';
 
 describe('postListReducer', () => {
   const currentState = {
@@ -26,13 +26,37 @@ describe('postListReducer', () => {
     author: "MacDaddy",
     votes: "433",
     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`,
+    timeOpen: 0,
     id: 1
   }
+
+  test('Should add a formatted wait time to post entry', () => {
+    const { title, content, author, votes, timeStamp, id, timeOpen } = postFormData;
+    action = {
+      type: c.UPDATE_TIME,
+      formattedWaitTime: '4 minutes',
+      id: id
+    };
+    expect(postListReducer({ [id] : postFormData }, action)).toEqual({
+      [id] : {
+        author: author,
+        title: title,
+        content: content,
+        timeOpen: timeOpen,
+        votes: votes,
+        id: id,
+        timeStamp: timeStamp,
+        formattedWaitTime: '4 minutes'
+      }
+    })
+  })
+
   test('Should return default state if no action type is recognized', () => {
     expect(postListReducer({}, {type: null})).toEqual({});
   });
+
   test('Should add a new post to the masterPostList', () => {
-    const { title, content, author, votes, timeStamp, id } = postFormData;
+    const { title, content, author, votes, timeStamp, id, timeOpen } = postFormData;
     action = {
       type: c.ADD_POST,
       title: title,
@@ -40,7 +64,9 @@ describe('postListReducer', () => {
       author: author,
       votes: votes,
       timeStamp: timeStamp,
-      id: id
+      timeOpen: timeOpen,
+      id: id,
+      formattedWaitTime: new Moment().fromNow()
     };
     expect(postListReducer({}, action)).toEqual({
       [id] : {
@@ -49,10 +75,13 @@ describe('postListReducer', () => {
         author: author,
         votes: votes,
         timeStamp: timeStamp,
-        id: id
+        timeOpen: timeOpen,
+        id: id,
+        formattedWaitTime: 'a few seconds ago'
       }
     });
   });
+
   test('Should delete a post', () => {
     action = {
       type: c.DELETE_POST,

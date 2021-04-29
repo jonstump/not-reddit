@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 } from 'uuid';
 import PropTypes from 'prop-types'
 import ReusableForm from './ReusableForm';
+import Moment from 'moment';
 
 function NewPostForm(props) {
   return(
@@ -18,7 +19,10 @@ function NewPostForm(props) {
     content: event.target.content.value,
     votes: 0,
     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`,
-    id: v4()});
+    id: v4(),
+    timeOpen: new Moment(),
+    formattedWaitTime: new Moment().fromNow()
+    });
   }
 }
 

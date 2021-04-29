@@ -5,6 +5,7 @@ import EditPostForm from './EditPostForm';
 import PostDetail from './PostDetail';
 import * as a from './../actions';
 import { connect } from 'react-redux';
+import Moment from 'moment';
 
 class PostControl extends React.Component {
 
@@ -15,6 +16,30 @@ class PostControl extends React.Component {
       selectedPost: null,
       editing: false
     };
+  }
+
+  componentDidMount(){
+    this.waitTimeUpdateTimer = setInterval(() =>
+    this.updatePostElapsedWaitTime(),
+    60000
+    );
+  }
+
+  // componentDidUpdate(){
+  //   console.log("component updated!");
+  // }
+
+  componentWillUnmount(){
+    clearInterval(this.waitTimeUpdateTimer);
+  }
+
+  updatePostElapsedWaitTime = () => {
+    const { dispatch } = this.props;
+    Object.values(this.props.masterPostList).forEach(post => {
+      const newFormattedWaitTime = post.timeOpen.fromNow();
+      const action = a.updateTime(post.id, newFormattedWaitTime);
+      dispatch(action);
+    });
   }
 
   handleButtonClick = () => {
@@ -64,6 +89,7 @@ class PostControl extends React.Component {
     selectedPost.votes += 1;
     this.setState({selectedPost: selectedPost})
     }
+
   handleDownvoteClick = (id) => {
     const selectedPost = this.props.masterPostList[id];
     selectedPost.votes -= 1;
@@ -102,7 +128,7 @@ class PostControl extends React.Component {
     }
     return (
       <>
-        <button onClick={this.handleButtonClick}>{buttonText}</button>
+        <button id="button-center" onClick={this.handleButtonClick}>{buttonText}</button>
         {currentView}
       </>
     );

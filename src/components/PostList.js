@@ -14,8 +14,8 @@ function PostList(props){
           author = {post.author}
           votes = {post.votes}
           timeStamp = {post.timeStamp}
+          formattedWaitTime={post.formattedWaitTime}
           id = {post.id}
-          // key = {post.id}
         />
         <hr/>
       </div>
