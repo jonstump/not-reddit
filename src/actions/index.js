@@ -5,8 +5,14 @@ export const deletePost = id => ({
   id
 });
 
+export const updateTime = (id, formattedWaitTime) => ({
+  type: c.UPDATE_TIME,
+  id: id,
+  formattedWaitTime: formattedWaitTime
+});
+
 export const addPost = (post) => {
-  const { title, content, author, votes, timeStamp, id } = post;
+  const { title, content, author, votes, timeStamp, id, timeOpen, formattedWaitTime } = post;
   return {
   type: c.ADD_POST,
   title: title,
@@ -14,6 +20,8 @@ export const addPost = (post) => {
   author: author,
   votes: votes,
   timeStamp: timeStamp,
-  id: id
+  id: id,
+  formattedWaitTime: formattedWaitTime,
+  timeOpen: timeOpen
   }
 }
