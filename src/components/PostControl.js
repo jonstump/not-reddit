@@ -1,6 +1,9 @@
 import React from 'react';
 import PostList from './PostList';
 import NewPostForm from './NewPostForm';
+import EditPostForm from './EditPostForm';
+import PostDetail from './PostDetail';
+import * as a from './../actions';
 import { connect } from 'react-redux';
 
 class PostControl extends React.Component {
@@ -10,45 +13,20 @@ class PostControl extends React.Component {
     this.state = {
       formVisible: false,
       selectedPost: null,
-      // examplePosts: [
-      //   { title: "This is a post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacDaddy",
-      //     votes: "433",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "This is a really cool post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacSonny",
-      //     votes: "123",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "Posty McPostface",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacGramp",
-      //     votes: "533",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "No yOU are A PoST",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "MacGrany",
-      //     votes: "423",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}` 
-      //   },
-      //   { title: "Posty post",
-      //     content: "kdjhfgkjhdsfkjghsdkjfghkjdsfhgkjhsdfkjgh fdkjghksjdfhgkjsdfhgkjhsdfg",
-      //     author: "Macladdy",
-      //     votes: "993",
-      //     timeStamp: `${(new Date()).getMonth()}/${(new Date()).getDate()}/${(new Date()).getFullYear()}`
-      //   }
-      // ]
+      editing: false
     };
   }
 
   handleButtonClick = () => {
-    this.setState(prevState => ({
-      formVisible: !prevState.formVisible
-    }));
+    if (this.state.selectedPost != null) {
+      this.setState({
+        selectedPost: null
+      });
+    } else {
+      this.setState(prevState => ({
+        formVisible: !prevState.formVisible
+      }));
+    }
   }
 
   handleSelectedPost = (id) => {
@@ -58,33 +36,70 @@ class PostControl extends React.Component {
 
   handleAddingNewPostToList = (newPost) => {
     const { dispatch } = this.props;
-    const { title, content, author, votes, timeStamp, id } = newPost;
-    const action = {
-      type: 'ADD_POST',
-      title: title,
-      content: content,
-      author: author,
-      votes: votes,
-      timeStamp: timeStamp,
-      id: id
-    }
+    const action = a.addPost(newPost);
     dispatch(action);
     this.setState({formVisible: false});
   }
 
+  handleEditingPost = (postToEdit) => {
+    const { dispatch } = this.props;
+    const action = a.addPost(postToEdit)
+    dispatch(action);
+    this.setState({editing: false, selectedPost: null});
+  }
+
+  handleDeleteingPost = (id) => {
+    const { dispatch } = this.props;
+    const action = a.deletePost(id);
+    dispatch(action);
+    this.setState({selectedPost: null});
+  }
+
+  handleEditClick = () => {
+    this.setState({editing: true});
+  }
+
+  handleUpvoteClick = (id) => {
+    const selectedPost = this.props.masterPostList[id];
+    selectedPost.votes += 1;
+    this.setState({selectedPost: selectedPost})
+    }
+  handleDownvoteClick = (id) => {
+    const selectedPost = this.props.masterPostList[id];
+    selectedPost.votes -= 1;
+    this.setState({selectedPost: selectedPost})
+    }
+
   render(){
     let currentView = null;
     let buttonText = null;
-    if (this.state.formVisible){
-      currentView = <NewPostForm />
+
+    if (this.state.editing){
+      currentView = <EditPostForm
+        post = {this.state.selectedPost}
+        onEditPost = {this.handleEditingPost}
+      />
+      buttonText = "Return to Posts"
+    } else if (this.state.formVisible){
+      currentView = <NewPostForm
+        onNewPostCreation = {this.handleAddingNewPostToList}
+      />
+      buttonText = "Return to Posts"
+    } else if(this.state.selectedPost != null){
+      currentView = <PostDetail post = {
+        this.state.selectedPost}
+        onClickingDelete = {this.handleDeleteingPost}
+        onClickingEdit = {this.handleEditClick}
+        onClickingUpvote = {this.handleUpvoteClick}
+        onClickingDownvote = {this.handleDownvoteClick}
+        />
       buttonText = "Return to Posts"
     } else {
       currentView = <PostList
-        postList = {this.props.masterPostList}
+        postList = {this.props.masterPostList} onPostSelection = {this.handleSelectedPost}
       />
       buttonText = "Create new post"
     }
-
     return (
       <>
         <button onClick={this.handleButtonClick}>{buttonText}</button>
@@ -96,7 +111,7 @@ class PostControl extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    masterPostList: state
+    masterPostList: state.masterPostList
   }
 }
 

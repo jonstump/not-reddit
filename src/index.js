@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import rootReducer from './reducers/index';
+import rootReducer from './reducers/index.js';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
