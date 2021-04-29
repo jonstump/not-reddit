@@ -128,7 +128,7 @@ class PostControl extends React.Component {
     }
     return (
       <>
-        <button onClick={this.handleButtonClick}>{buttonText}</button>
+        <button id="button-center" onClick={this.handleButtonClick}>{buttonText}</button>
         {currentView}
       </>
     );
