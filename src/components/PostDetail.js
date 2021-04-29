@@ -5,8 +5,8 @@ function PostDetail(props){
   const { post, onClickingDelete, onClickingEdit, onClickingUpvote, onClickingDownvote } = props;
   return (
     <>
-      <div className="styledPost">
-        <p>Posted by u/{post.author} {post.timeStamp}</p>
+      <div className="styledPostDetail">
+      <span id="time" ><p>Posted by u/{post.author} {post.formattedWaitTime}</p></span>
         <h3>{post.title}</h3>
         <p>{post.content}</p>
         <button onClick={() => onClickingUpvote(post.id)}>^</button>
